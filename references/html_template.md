@@ -274,6 +274,14 @@
       <div class="label">智能纪要</div>
       <div class="value">{{SMART_MINUTES}}<span class="unit"> 场</span></div>
     </div>
+    <div class="overview-card">
+      <div class="label">我发起的</div>
+      <div class="value" style="color: #00B894;">{{HOST_COUNT}}<span class="unit"> 场</span></div>
+    </div>
+    <div class="overview-card">
+      <div class="label">我参与的</div>
+      <div class="value" style="color: #FDCB6E;">{{ATTEND_COUNT}}<span class="unit"> 场</span></div>
+    </div>
   </div>
 
   <!-- 二、会议类型分布 -->
@@ -297,7 +305,7 @@
   <div class="section">
     <div class="section-title"><span class="icon">📋</span>会议明细</div>
     <table>
-      <thead><tr><th>#</th><th>主题</th><th>日期</th><th>时间</th><th>时长</th><th>类型</th><th>会议号</th><th>录制</th><th>纪要</th></tr></thead>
+      <thead><tr><th>#</th><th>主题</th><th>日期</th><th>时间</th><th>时长</th><th>类型</th><th>角色</th><th>会议号</th><th>录制</th><th>纪要</th></tr></thead>
       <tbody>
         {{MEETING_ROWS}}
       </tbody>
@@ -335,6 +343,8 @@
 | `{{AVG_DAILY}}` | 日均会议数 | `3.0` |
 | `{{RECORD_RATE}}` | 录制覆盖率(整数) | `0` |
 | `{{SMART_MINUTES}}` | 有智能纪要的会议数 | `0` |
+| `{{HOST_COUNT}}` | 我发起的会议数 | `2` |
+| `{{ATTEND_COUNT}}` | 我参与的会议数 | `1` |
 | `{{TYPE_ROWS}}` | 会议类型分布表格行 | `<tr><td>普通会议</td><td>3</td><td>100%</td><td>4h 0m</td></tr>` |
 | `{{HEATMAP_ROWS}}` | 热力图行（单日或每日） | 见下方说明 |
 | `{{MEETING_ROWS}}` | 会议明细表格行 | 见下方说明 |
@@ -371,11 +381,14 @@
   <td>20:00 - 22:00</td>
   <td>2h</td>
   <td><span class="badge badge-info">普通会议</span></td>
+  <td><span class="badge badge-warning">我参与的</span></td>
   <td>792330725</td>
   <td><span class="badge badge-danger">无录制</span></td>
   <td><span class="badge badge-danger">无</span></td>
 </tr>
 ```
+
+角色列：`badge-success`（我发起的）/ `badge-warning`（我参与的）
 
 录制列：✅ → `badge-success`，❌ → `badge-danger`
 纪要列：✅ → `badge-success`，❌ → `badge-danger`

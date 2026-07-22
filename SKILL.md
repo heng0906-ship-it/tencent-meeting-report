@@ -49,7 +49,19 @@ python3 ~/.claude/skills/tencent-meeting-skill/scripts/tencent_meeting.py tools/
 
 翻页：若 `has_more` 为 true，用 `next_page_token` 继续拉取。
 
-### 第三步：查询录制覆盖
+### 第三步：识别会议角色
+
+从 `get_user_meetings` 返回中找出 `meeting_type` 为"个人会议号"的会议，记录其 `meeting_code` 作为个人会议码。随后按以下规则判断每场会议的角色：
+
+| 条件 | 角色 |
+|------|------|
+| `meeting_type` 为 "个人会议室" | **我发起的** |
+| `meeting_code` 等于个人会议码 | **我发起的** |
+| 其他（普通会议/周期性会议等） | **我参与的** |
+
+在报表总览卡片中增加"我发起的"和"我参与的"场次统计。
+
+### 第四步：查询录制覆盖
 
 对每场会议调用 `get_records_list` 检查录制状态，同时尝试获取智能纪要：
 
@@ -57,7 +69,7 @@ python3 ~/.claude/skills/tencent-meeting-skill/scripts/tencent_meeting.py tools/
 python3 ~/.claude/skills/tencent-meeting-skill/scripts/tencent_meeting.py tools/call '{"name":"get_records_list","arguments":{"meeting_id":"<meeting_id>","page_size":10,"_client_info":{"os":"darwin","agent":"claude_code","model":"deepseek-v4-pro"}}}'
 ```
 
-### 第四步：生成 HTML 报表
+### 第五步：生成 HTML 报表
 
 **必须生成 HTML 文件**，读取 `references/html_template.md` 获取完整 HTML 模板和样式规范。将数据填入模板，保存为 `.html` 文件，然后用 `open` 命令在浏览器中打开。
 
